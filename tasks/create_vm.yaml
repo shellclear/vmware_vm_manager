@@ -17,6 +17,10 @@
       register: "vmware_vm_manager_info"
       ignore_errors: true
 
+    # - name: "DEBUG: \"Print vm info\""
+    #   ansible.builtin.debug:
+    #     msg: "{{ vmware_vm_manager_info['failed'] }}"
+
     - name: "Assert that vm not exists inside datacenter"
       ansible.builtin.assert:
         that:
@@ -49,4 +53,33 @@
     convert: "{{ vmware_vm_manager_convert | default(omit) }}"
     guest_id: "{{ vmware_vm_guest_id if vmware_vm_guest_id is defined and vmware_vm_template is not defined else omit }}"
     use_instance_uuid: "{{ vmware_vm_manager_use_instance_uuid | default(omit) }}"
+    # vmware_vm_manager_linked_clone: "{{ vmware_vm_manager_linked_clone }}"
+    # state_change_timeout: "{{ vmware_vm_manager_state_change_timeout }}"
+    # resource_pool: "{{ vmware_vm_manager_resource_pool }}"
+    # is_template: "{{ vmware_vm_manager_is_template }}"
+    # snapshot_src: "{{ _vmware_vm_manager_snapshot_src }}"
+    # name_match: "{{ vmware_vm_manager_name_match }}"
+    # nvdimm : "{{ vmware_vm_manager_nvdimm }}"
+    # vaap_properties: "{{ vmware_vm_manager_vaap_properties }}"
+    # encryption: "{{ vmware_vm_manager_encryption }}"
+    # wait_for_ip_address: true
+    # customization: "{{ vmware_vm_manager_customization | default(omit) }}"
+    #   domain: "{{ guest_domain }}"
+    #   dns_servers:
+    #     - 8.9.9.9
+    #     - 7.8.8.9
+    #   dns_suffix:
+    #     - example.com
+    #     - example2.com
+    #   script_text: |
+    #     #!/bin/bash
+    #     touch /tmp/touch-from-playbook
+        # cdrom:
+        # - controller_number: 0
+        #   unit_number: 0
+        #   state: present
+        #   type: iso
+        #   iso_path: "[datastore1] livecd.iso"
+    # wait_for_customization: "{{ vmware_vm_manager_wait_for_customization }}"
+    # wait_for_customization_timeout: "{{ vmware_vm_manager_wait_for_customization_timeout }}"
 ...

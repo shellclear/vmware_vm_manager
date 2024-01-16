@@ -60,7 +60,7 @@ Example Playbook
     vmware_vm_manager_datacenter: "datacenter_name"
     vmware_vm_manager_datastore: "datastore_name"
     vmware_vm_manager_folder: "folder/dir"
-    vmware_vm_manager_name: "redhat"
+    vmware_vm_manager_name: "vmname"
     vmware_vm_manager_template: "template_name"
     vmware_vm_manager_disk:
       - size_gb: 10

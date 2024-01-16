@@ -40,4 +40,26 @@ vmware_vm_manager_state: "present"
 # vmware_vm_manager_create_tag_name: ""
 # vmware_vm_manager_create_tag_description: ""
 # vmware_vm_manager_vm_tag_names: ""
+
+# vmware_vm_manager_customization: {}
+# vmware_vm_manager_customization_spec: "{{ vmware_vm_customizatio_spec }}"
+# vmware_vm_manager_customvalues: "{{ vmware_vm_custom_values | defauly('') }}"
+# vmware_vm_manager_delete_from_inventory: "{{ vmware_vm_delete_from_inventory |default('') }}" # < used on remove/absent process
+# vmware_vm_manager_force: "{{ vmware_vm_force | default('False') | bool }}"
+
+# vmware_vm_manager_state_change_timeout: "{{ vmware_vm_state_change_timeout if vmware_vm_manager_state=='shutdownguest' else '0' }}"
+# vmware_vm_manager_use_instance_uuid: "{{ vmware_vm_use_instance_uuid | default('False') | bool }}"
+# vmware_vm_manager_uuid: "{{ vmware_vm_uuid if vmware_vm_name is not defined }}"
+# vmware_vm_manager_encryption: "{{ vmware_vm_encryption | default('{}') }}"
+# vmware_vm_manager_linked_clone: "{{ vmware_vm_linked_clone | default('False') | bool }}"
+# vmware_vm_manager_name_match: "{{ vmware_vm_name }}" # <-- check this!!
+# vmware_vm_manager_nvdimm: "{{ vmware_vm_nvdimm | default('{}') }}"
+# vmware_vm_manager_vaap_properties: "[]" #<---check this
+# vmware_vm_manager_wait_for_customization: "{{ vmware_vm_wait_for_customization |default('False') | bool }}"
+# vmware_vm_manager_wait_for_customization_timeout: "{{ vmware_vm_wait_for_customization_timeout |default('3600') | int }}"
+# vmware_vm_manager_wait_for_ip_address: "{{ vmware_vm_wait_for_ip_address | default('False')| bool }}"
+# vmware_vm_manager_wait_for_ip_address_timeout: "{{ vmware_vm_wait_for_ip_address | default('300 ')| int }}"
+# vmware_vm_manager_resource_pool: "''"
+# vmware_vm_manager_snapshot_src: "{{ vmware_vm_snapshot_src if vmware_vm_linked_clone id defined else '' }}"
+# vmware_vm_manager_cdrom: []
 ...
