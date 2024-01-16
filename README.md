@@ -6,9 +6,10 @@ Manage VMs on vsphere
 Requirements
 ------------
 
-pyVmomi>=6.7
-git+https://github.com/vmware/vsphere-automation-sdk-python.git ; python_version >= '2.7'  # Python 2.6 is not supported
-
+Python requirements on the control node runnig the automation
+- pyVmomi>=6.7
+- git+https://github.com/vmware/vsphere-automation-sdk-python.git
+- python_version >= '2.7'  # Python 2.6 is not supported
 
 Role Variables
 --------------
