@@ -1,0 +1,19 @@
+---
+# tasks file for vmware_vm_manager
+
+- name: "Include \"create_vm.yaml\" tasks"
+  ansible.builtin.include_tasks: "create_vm.yaml"
+  tags:
+    - "create_vm"
+  when:
+    - vmware_vm_manager_state == "present" or
+      vmware_vm_manager_state == "poweredon" or
+      vmware_vm_manager_state == "powered-on"
+
+- name: "Include \"create_tags.yaml\" tasks"
+  ansible.builtin.include_tasks: "create_tags.yaml"
+  tags:
+    - "create_tags"
+  when:
+    - vmware_vm_manager_vm_tag_names
+...

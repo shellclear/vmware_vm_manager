@@ -1,0 +1,43 @@
+---
+# defaults file for vmware_vm_manager
+
+# vmware_vm_manager_hostname: ""
+# vmware_vm_manager_username: ""
+vmware_vm_manager_port: 443
+vmware_vm_manager_validate_certs: true
+
+# Proxy vars
+# vmware_vm_manager_proxy_host: ""
+# vmware_vm_manager_proxy_port: ""
+
+# vcenter vars
+# vmware_vm_manager_datacenter: ""
+# vmware_vm_manager_cluster: ""
+# vmware_vm_manager_esxi_hostname: ""
+
+# storage vars:
+# vmware_vm_manager_datastore: ""
+# vmware_vm_manager_folder: ""
+
+# vm vars
+# vmware_vm_manager_name: ""
+vmware_vm_manager_annotation: "Created by Ansible"
+vmware_vm_manager_state: "present"
+# vmware_vm_manager_template: ""
+# vmware_vm_manager_disk: []
+# vmware_vm_manager_hardware: {}
+# vmware_vm_manager_networks: []
+# vmware_vm_manager_force: False
+# vmware_vm_manager_convert: ""
+# vmware_vm_manager_guest_id: ""
+# vmware_vm_manager_use_instance_uuid: False
+# vmware_vm_manager_uuid: False
+# vmware_vm_manager_tag_names: []
+
+# tags
+# vmware_vm_manager_tag_category_name: ""
+# vmware_vm_manager_tag_category_description: ""
+# vmware_vm_manager_create_tag_name: ""
+# vmware_vm_manager_create_tag_description: ""
+# vmware_vm_manager_vm_tag_names: ""
+...

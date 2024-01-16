@@ -1,0 +1,14 @@
+galaxy_info:
+  author: "shellclear@gmail.com"
+  description: "Manager VMs on Vsphere"
+  company: "shellclear"
+  issue_tracker_url: "https://github.com/shellclear/vmware_vm_manager/issues"
+  license: "MIT License"
+  min_ansible_version: 2.16.2
+  platforms:
+    - name: "EL"
+      versions:
+        - "all"
+  galaxy_tags:
+    - "vmware"
+    - "createvm"

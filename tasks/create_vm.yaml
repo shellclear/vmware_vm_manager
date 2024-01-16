@@ -1,0 +1,52 @@
+---
+# tasks file for vmware_vm_manager
+
+- name: "Check if vm exists"
+  block:
+    - name: "Gathering vm info"
+      community.vmware.vmware_guest_info:
+        hostname: "{{ vmware_vm_manager_hostname | default(lookup('ansible.builtin.env', 'VMWARE_HOST')) }}"
+        username: "{{ vmware_vm_manager_username | default(lookup('ansible.builtin.env', 'VMWARE_USER')) }}"
+        password: "{{ vmware_vm_manager_password | default(lookup('ansible.builtin.env', 'VMWARE_PASSWORD')) }}"
+        port: "{{ vmware_vm_manager_port | default(lookup('ansible.builtin.env', 'VMWARE_PORT')) }}"
+        validate_certs: "{{ vmware_vm_manager_validate_certs | default(lookup('ansible.builtin.env', 'VMWARE_VALIDATE_CERTS')) }}"
+        proxy_host: "{{ vmware_vm_manager_proxy_host | default(lookup('ansible.builtin.env', 'VMWARE_PROXY_HOST')) }}"
+        proxy_port: "{{ vmware_vm_manager_proxy_port | default(lookup('ansible.builtin.env', 'VMWARE_PROXY_PORT')) | int }}"
+        datacenter: "{{ vmware_vm_manager_datacenter | mandatory }}"
+        name: "{{ vmware_vm_manager_name | mandatory }}"
+      register: "vmware_vm_manager_info"
+      ignore_errors: true
+
+    - name: "Assert that vm not exists inside datacenter"
+      ansible.builtin.assert:
+        that:
+          - vmware_vm_manager_info['failed']
+        fail_msg: "{{ vmware_vm_manager_name }} vm exists inside the {{ vmware_vm_manager_datacenter }} datacenter, please check it before to continue"
+        success_msg: "{{ vmware_vm_manager_name }} not exists inside the {{ vmware_vm_manager_datacenter }} datacenter."
+
+- name: "Clone a virtual machine from template"
+  community.vmware.vmware_guest:
+    hostname: "{{ vmware_vm_manager_hostname | default(lookup('ansible.builtin.env', 'VMWARE_HOST')) }}"
+    username: "{{ vmware_vm_manager_username | default(lookup('ansible.builtin.env', 'VMWARE_USER')) }}"
+    password: "{{ vmware_vm_manager_password | default(lookup('ansible.builtin.env', 'VMWARE_PASSWORD')) }}"
+    port: "{{ vmware_vm_manager_port | default(lookup('ansible.builtin.env', 'VMWARE_PORT')) }}"
+    validate_certs: "{{ vmware_vm_manager_validate_certs | default(lookup('ansible.builtin.env', 'VMWARE_VALIDATE_CERTS')) }}"
+    proxy_host: "{{ vmware_vm_manager_proxy_host | default(lookup('ansible.builtin.env', 'VMWARE_PROXY_HOST')) }}"
+    proxy_port: "{{ vmware_vm_manager_proxy_port | default(lookup('ansible.builtin.env', 'VMWARE_PROXY_PORT')) | int }}"
+    datacenter: "{{ vmware_vm_manager_datacenter | mandatory }}"
+    cluster: "{{ vmware_vm_manager_cluster if vmware_vm_manager_cluster is defined and vmware_vm_manager_esxi_hostname is not defined else omit }}"
+    esxi_hostname: "{{ vmware_vm_manager_esxi_hostname if vmware_vm_manager_esxi_hostname is defined and vmware_vm_manager_cluster is not defined else omit }}"
+    datastore: "{{ vmware_vm_manager_datastore if vmware_vm_manager_datastore is defined else omit }}"
+    folder: "{{ vmware_vm_manager_folder if vmware_vm_manager_folder is defined else omit }}"
+    name: "{{ vmware_vm_manager_name | mandatory }}"
+    annotation: "{{ vmware_vm_manager_annotation | default(omit) }}"
+    state: "{{ vmware_vm_manager_state | default(omit) }}"
+    template: "{{ vmware_vm_manager_template if vmware_vm_manager_template is defined else omit }}"
+    disk: "{{ vmware_vm_manager_disk | default(omit) }}"
+    hardware: "{{ vmware_vm_manager_hardware | default(omit) }}"
+    networks: "{{ vmware_vm_manager_networks | mandatory }}"
+    force: "{{ vmware_vm_manager_force | default(omit) }}"
+    convert: "{{ vmware_vm_manager_convert | default(omit) }}"
+    guest_id: "{{ vmware_vm_guest_id if vmware_vm_guest_id is defined and vmware_vm_template is not defined else omit }}"
+    use_instance_uuid: "{{ vmware_vm_manager_use_instance_uuid | default(omit) }}"
+...

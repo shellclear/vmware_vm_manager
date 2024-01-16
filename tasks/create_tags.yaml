@@ -1,0 +1,49 @@
+---
+# tasks file for vmware_vm_manager
+
+- name: "Add tags to the virtual machine"
+  when:
+    - vmware_vm_manager_vm_tag_names
+  block:
+    - name: "Create category"
+      community.vmware.vmware_category:
+        hostname: "{{ vmware_vm_manager_hostname | default(lookup('ansible.builtin.env', 'VMWARE_HOST')) }}"
+        username: "{{ vmware_vm_manager_username | default(lookup('ansible.builtin.env', 'VMWARE_USER')) }}"
+        password: "{{ vmware_vm_manager_password | default(lookup('ansible.builtin.env', 'VMWARE_PASSWORD')) }}"
+        port: "{{ vmware_vm_manager_port | default(lookup('ansible.builtin.env', 'VMWARE_PORT')) }}"
+        validate_certs: "{{ vmware_vm_manager_validate_certs | default(lookup('ansible.builtin.env', 'VMWARE_VALIDATE_CERTS')) }}"
+        proxy_host: "{{ vmware_vm_manager_proxy_host | default(lookup('ansible.builtin.env', 'VMWARE_PROXY_HOST')) }}"
+        proxy_port: "{{ vmware_vm_manager_proxy_port | default(lookup('ansible.builtin.env', 'VMWARE_PROXY_PORT')) | int }}"
+        category_name: "{{ vmware_vm_manager_tag_category_name | mandatory }}"
+        category_description: "{{ vmware_vm_manager_tag_category_description }}"
+        associable_object_types:
+        - "Virtual Machine"
+        
+    - name: "Create a vmware tag"
+      community.vmware.vmware_tag:
+        hostname: "{{ vmware_vm_manager_hostname | default(lookup('ansible.builtin.env', 'VMWARE_HOST')) }}"
+        username: "{{ vmware_vm_manager_username | default(lookup('ansible.builtin.env', 'VMWARE_USER')) }}"
+        password: "{{ vmware_vm_manager_password | default(lookup('ansible.builtin.env', 'VMWARE_PASSWORD')) }}"
+        port: "{{ vmware_vm_manager_port | default(lookup('ansible.builtin.env', 'VMWARE_PORT')) }}"
+        validate_certs: "{{ vmware_vm_manager_validate_certs | default(lookup('ansible.builtin.env', 'VMWARE_VALIDATE_CERTS')) }}"
+        proxy_host: "{{ vmware_vm_manager_proxy_host | default(lookup('ansible.builtin.env', 'VMWARE_PROXY_HOST')) }}"
+        proxy_port: "{{ vmware_vm_manager_proxy_port | default(lookup('ansible.builtin.env', 'VMWARE_PROXY_PORT')) | int }}"
+        category_name: "{{ vmware_vm_manager_tag_category_name | mandatory }}"
+        tag_name: "{{ vmware_vm_manager_create_tag_name |mandatory }}"
+        tag_description: "{{ vmware_vm_manager_create_tag_description | default(omit) }}"
+        state: present
+
+    - name: "Assign tags to vm"
+      community.vmware.vmware_tag_manager:
+        hostname: "{{ vmware_vm_manager_hostname | default(lookup('ansible.builtin.env', 'VMWARE_HOST')) }}"
+        username: "{{ vmware_vm_manager_username | default(lookup('ansible.builtin.env', 'VMWARE_USER')) }}"
+        password: "{{ vmware_vm_manager_password | default(lookup('ansible.builtin.env', 'VMWARE_PASSWORD')) }}"
+        port: "{{ vmware_vm_manager_port | default(lookup('ansible.builtin.env', 'VMWARE_PORT')) }}"
+        validate_certs: "{{ vmware_vm_manager_validate_certs | default(lookup('ansible.builtin.env', 'VMWARE_VALIDATE_CERTS')) }}"
+        proxy_host: "{{ vmware_vm_manager_proxy_host | default(lookup('ansible.builtin.env', 'VMWARE_PROXY_HOST')) }}"
+        proxy_port: "{{ vmware_vm_manager_proxy_port | default(lookup('ansible.builtin.env', 'VMWARE_PROXY_PORT')) | int }}"
+        tag_names: "{{ vmware_vm_manager_vm_tag_names | default(omit) }}"
+        object_name: "{{ vmware_vm_manager_name | mandatory }}"
+        object_type: "VirtualMachine"
+        state: "add"
+...

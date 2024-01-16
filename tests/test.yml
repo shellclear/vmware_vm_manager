@@ -1,0 +1,25 @@
+---
+- name: "Create VM on VMware hypervisor"
+  hosts: "localhost"
+  gather_facts: false
+  vars:
+    vmware_vm_manager_hostname: "vmware.portal.local.domain"
+    vmware_vm_manager_username: "vmware_username"
+    vmware_vm_manager_datacenter: "datacenter_name"
+    vmware_vm_manager_datastore: "datastore_name"
+    vmware_vm_manager_folder: "folder/dir"
+    vmware_vm_manager_name: "redhat"
+    vmware_vm_manager_template: "template_name"
+    vmware_vm_manager_disk:
+      - size_gb: 10
+        type: "thin"
+    vmware_vm_manager_hardware:
+      memory_mb: 2048
+      num_cpus: 4
+      num_cpu_cores_per_socket: 2
+    vmware_vm_manager_networks:
+      - name: "network_name"
+        vlan: 0
+  roles:
+    - "vmware_vm_manager"
+...
